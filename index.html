@@ -1,83 +1,695 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modefriseur Brusius – Herzlich Willkommen</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modefriseur Brusius - Lohra-Kirchvers</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- Edle Schriftarten -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+
+    <script type="text/javascript">
+       (function(){
+          // HIER SPÄTER DEINEN EMAILJS PUBLIC KEY EINFÜGEN WENN DU EMAILS BEKOMMEN WILLST
+          // emailjs.init("DEIN_PUBLIC_KEY");
+       })();
+    </script>
+
+    <style>
+        body { font-family: 'Lato', sans-serif; background-color: #FFFFFF; color: #1c1917; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        .font-modern { font-family: 'Montserrat', sans-serif; }
+        
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        .slide-up { animation: slideUp 0.8s ease-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Gold/Bronze Accent */
+        .text-gold { color: #C5A059; }
+        .bg-gold { background-color: #C5A059; }
+        .border-gold { border-color: #C5A059; }
+        .hover-gold:hover { color: #C5A059; }
+        
+        /* Google Colors */
+        .text-google-blue { color: #4285F4; }
+        .text-google-red { color: #EA4335; }
+        .text-google-yellow { color: #FBBC05; }
+        .text-google-green { color: #34A853; }
+    </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="container">
-      <h1 class="logo">Modefriseur Brusius</h1>
-      <ul class="nav-links">
-        <li><a href="index.html">Start</a></li>
-        <li><a href="services.html">Leistungen</a></li>
-        <li><a href="gallery.html">Galerie</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="contact.html">Kontakt</a></li>
-      </ul>
-    </div>
-  </nav>
+    <div id="root"></div>
 
-  <!-- Hero Section -->
-  <section class="hero" style="background-image: url('images/salon.jpg');">
-    <div class="hero-content">
-      <h2>Willkommen bei Modefriseur Brusius</h2>
-      <p>Individuelle Beratung – Natürliche Frisuren – Entspannende Wohlfühlmomente</p>
-      <a href="contact.html" class="btn">Termin vereinbaren</a>
-    </div>
-  </section>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-  <!-- About Section -->
-  <section class="about">
-    <div class="container">
-      <h2>Über uns</h2>
-      <p>
-        Durch Ausbildung in Typberatung und Visagistik ist es möglich, eine individuelle Beratung durchzuführen. 
-        Wir erarbeiten gemeinsam mit Ihnen natürliche Frisuren, die Sie auch zu Hause problemlos pflegen und stylen können.
-      </p>
-      <p>
-        Durch ständige Weiterbildung bekommen Sie innovative Colorationen, die nach einer Color-Beratung individuell auf Sie abgestimmt werden können.
-      </p>
-      <p>
-        Ein kleiner Typcheck ermöglicht eine Schnitttechnik, die Sie variabel stylen können, ob trendy oder klassisch.
-      </p>
-    </div>
-  </section>
+        // --- NAVIGATION ---
+        const Navbar = () => {
+            const [isOpen, setIsOpen] = useState(false);
+            const [scrolled, setScrolled] = useState(false);
 
-  <!-- Services Preview -->
-  <section class="services-preview">
-    <div class="container">
-      <h2>Unsere Leistungen</h2>
-      <div class="service-grid">
-        <div class="service-card">
-          <img src="images/babu.jpg" alt="Haarschnitt">
-          <h3>Haarschnitt</h3>
-          <p>Modische Schnitte für jeden Typ – trendy oder klassisch</p>
-        </div>
-        <div class="service-card">
-          <img src="images/babylion.jpg" alt="Coloration">
-          <h3>Coloration</h3>
-          <p>Individuelle Farben nach Color-Beratung</p>
-        </div>
-        <div class="service-card">
-          <img src="images/babynah.jpg" alt="Kosmetik">
-          <h3>Kosmetik & Visagistik</h3>
-          <p>Verwöhnung für besondere Anlässe</p>
-        </div>
-      </div>
-      <a href="services.html" class="btn">Alle Leistungen ansehen</a>
-    </div>
-  </section>
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Modefriseur Brusius | Alle Rechte vorbehalten</p>
-      <p>Gestaltet mit ❤️ in Kirchvers</p>
-    </div>
-  </footer>
+            return (
+                <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white shadow-md py-3' : 'bg-black/40 backdrop-blur-sm py-4 md:py-6'}`}>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center">
+                                <a href="#" className={`font-modern text-2xl md:text-3xl font-light tracking-[0.2em] uppercase transition-colors ${scrolled ? 'text-black' : 'text-white'}`}>
+                                    Brusius<span className="text-gold font-bold">.</span>
+                                </a>
+                            </div>
+                            <div className="hidden md:flex items-center space-x-8">
+                                {['Team', 'Leistungen', 'Galerie', 'Booking', 'Anfahrt'].map((item) => (
+                                    <a key={item} href={`#${item.toLowerCase()}`} className={`text-xs uppercase tracking-[0.15em] font-bold transition hover:text-gold ${scrolled ? 'text-gray-800' : 'text-gray-200'}`}>
+                                        {item}
+                                    </a>
+                                ))}
+                            </div>
+                            <div className="md:hidden flex items-center">
+                                <button onClick={() => setIsOpen(!isOpen)} className={`${scrolled ? 'text-black' : 'text-white'} focus:outline-none p-2`}>
+                                    <i data-lucide={isOpen ? "x" : "menu"} className="w-8 h-8"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {isOpen && (
+                        <div className="md:hidden bg-white absolute top-full w-full border-t border-gray-100 shadow-lg fade-in text-center">
+                            <div className="px-4 py-8 space-y-6">
+                                {['Team', 'Leistungen', 'Galerie', 'Booking', 'Anfahrt'].map((item) => (
+                                    <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setIsOpen(false)} className="block text-lg font-serif text-gray-800 hover:text-gold">{item}</a>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </nav>
+            );
+        };
+
+        // --- HERO SECTION ---
+        const Hero = () => {
+            return (
+                <section id="start" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-0">
+                    <div className="absolute inset-0 z-0">
+                        {/* HEADER BILD: header.jpg */}
+                        <img src="images/header.jpg" className="w-full h-full object-cover object-top" alt="Modefriseur Brusius Style" 
+                             onError={(e) => {e.target.src='https://images.unsplash.com/photo-1605980776566-0486c3ac5042?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80'}} /> 
+                        <div className="absolute inset-0 bg-black/50"></div>
+                    </div>
+                    <div className="relative z-10 max-w-4xl mx-auto px-4 text-center text-white slide-up pb-12">
+                        <p className="text-xs md:text-sm uppercase tracking-[0.4em] mb-6 text-gold">Modefriseur Brusius</p>
+                        <h1 className="text-4xl md:text-7xl font-serif font-medium mb-8 leading-tight">
+                            Der Rest hat geschlossen? <br/>
+                            <span className="italic font-light opacity-90">Ihr Termin steht schon.</span>
+                        </h1>
+                        <p className="text-base md:text-xl mb-12 font-light text-gray-200 max-w-2xl mx-auto leading-relaxed">
+                            Genießen Sie unseren 24/7 Online-Service. <br/>
+                            Buchen Sie Ihren Wunschtermin bequem von zu Hause aus – auch sonntags.
+                        </p>
+                        <a href="#booking" className="inline-block bg-white text-black px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gold hover:text-white transition duration-300 shadow-xl">
+                            Termin Prüfen
+                        </a>
+                    </div>
+                    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white animate-bounce hidden md:block">
+                        <i data-lucide="chevron-down" className="w-8 h-8 opacity-70"></i>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- TEAM SECTION ---
+        const Team = () => {
+            return (
+                <section id="team" className="py-24 bg-stone-50">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <div className="text-center mb-16">
+                            <h2 className="text-4xl font-serif font-bold mb-4">Unser Team</h2>
+                            <div className="w-20 h-1 bg-gold mx-auto"></div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-12 lg:gap-24 items-start">
+                            {/* Andrea Brusius */}
+                            <div className="bg-white p-6 shadow-lg hover:shadow-2xl transition duration-500 group">
+                                <div className="relative h-96 mb-6 overflow-hidden">
+                                    {/* BILD: andrea.jpg */}
+                                    <img src="images/andrea.jpg" alt="Andrea Brusius" className="w-full h-full object-cover object-top transition duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" 
+                                         onError={(e) => {e.target.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}} />
+                                </div>
+                                <h3 className="text-2xl font-serif font-bold mb-1">Andrea Brusius</h3>
+                                <p className="text-xs font-bold uppercase tracking-widest text-gold mb-4">Inhaberin & Meisterin</p>
+                                <p className="text-gray-600 leading-relaxed text-sm">
+                                    "Schönheit ist absolut individuell. Mit meiner langjährigen Erfahrung in Typberatung sehe ich sofort, was Ihre Persönlichkeit unterstreicht. Perfektion ist für mich kein Anspruch, sondern Standard."
+                                </p>
+                            </div>
+
+                            {/* Tatyana Leib */}
+                            <div className="bg-white p-6 shadow-lg hover:shadow-2xl transition duration-500 group md:mt-12">
+                                <div className="relative h-96 mb-6 overflow-hidden">
+                                    {/* BILD: tatti.jpg */}
+                                    <img src="images/tatti.jpg" alt="Tatyana Leib" className="w-full h-full object-cover object-top transition duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" 
+                                         onError={(e) => {e.target.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}} />
+                                </div>
+                                <h3 className="text-2xl font-serif font-bold mb-1">Tatyana Leib</h3>
+                                <p className="text-xs font-bold uppercase tracking-widest text-gold mb-4">Top-Stylistin</p>
+                                <p className="text-gray-600 leading-relaxed text-sm">
+                                    "Ich liebe es, mit Farben und Schnitten zu spielen, um frische, lebendige Looks zu kreieren. Ihre Haare sind bei mir in den besten Händen – ob klassisch elegant oder modern und frech."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- LEISTUNGEN ---
+        const servicesData = [
+            {
+                id: 1,
+                title: "Schnitt & Wellness",
+                desc: "Präzise Haarschnitte, die zu Ihrer Gesichtsform passen. Inklusive entspannender Kopfmassage.",
+                price: "ab 45 €",
+                duration: 60, // Minuten
+                // BILD: haarschnitt.jpg
+                img: "images/haarschnitt.jpg" 
+            },
+            {
+                id: 2,
+                title: "Coloration & Glossing",
+                desc: "Brillante Farben, Balayage oder sanfte Tönungen. Wir planen extra viel Zeit für perfekte Ergebnisse ein.",
+                price: "ab 65 €",
+                duration: 150, // Minuten (2.5 Std)
+                // BILD: coloration.jpg
+                img: "images/coloration.jpg"
+            },
+            {
+                id: 3,
+                title: "Visagistik & Kosmetik",
+                desc: "Das perfekte Make-up für Ihren großen Auftritt oder den Alltag.",
+                price: "ab 35 €",
+                duration: 45, // Minuten
+                // BILD: visagistik.jpg
+                img: "images/visagistik.jpg"
+            }
+        ];
+
+        const Services = ({ onSelectService }) => {
+            return (
+                <section id="leistungen" className="py-24 bg-white">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <div className="text-center mb-16">
+                            <h2 className="text-4xl font-serif font-bold mb-4">Leistungen & Preise</h2>
+                            <p className="text-gray-500 max-w-xl mx-auto">Wählen Sie Ihre Behandlung – wir berechnen automatisch die nötige Zeit.</p>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-3 gap-10">
+                            {servicesData.map((service, index) => (
+                                <div key={index} className="group bg-white rounded-lg overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition duration-500">
+                                    <div className="h-64 overflow-hidden relative">
+                                        <img 
+                                            src={service.img} 
+                                            className="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
+                                            alt={service.title} 
+                                            onError={(e) => {
+                                                // Fallback
+                                                e.target.src='https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+                                            }}
+                                        />
+                                        <div className="absolute bottom-0 left-0 bg-white/90 backdrop-blur px-6 py-2 font-serif font-bold text-lg">
+                                            {service.title}
+                                        </div>
+                                    </div>
+                                    <div className="p-8 flex flex-col h-full">
+                                        <div className="flex-grow">
+                                            <p className="text-gray-600 mb-6 leading-relaxed">{service.desc}</p>
+                                            {index === 0 && (
+                                                <div className="flex items-center text-gold text-sm font-bold mb-6 bg-stone-50 p-2 rounded">
+                                                    <i data-lucide="sparkles" className="w-4 h-4 mr-2"></i>
+                                                    Inkl. Verwöhn-Kopfmassage
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="flex justify-between items-center border-t border-gray-100 pt-6 mt-auto">
+                                            <div className="flex flex-col">
+                                                <span className="text-xl font-serif font-bold text-gray-900">{service.price}</span>
+                                                <span className="text-xs text-gray-400">ca. {service.duration} Min</span>
+                                            </div>
+                                            <button 
+                                                onClick={() => onSelectService(service)}
+                                                className="text-xs font-bold uppercase tracking-widest bg-black text-white px-4 py-2 hover:bg-gold transition"
+                                            >
+                                                Termin buchen
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- GALERIE (Neu für die Extra Bilder) ---
+        const Gallery = () => {
+            return (
+                 <section id="galerie" className="py-24 bg-stone-50">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <div className="text-center mb-12">
+                            <span className="text-gold font-bold tracking-widest uppercase text-xs">Impressionen</span>
+                            <h2 className="text-4xl font-serif font-bold mt-2 mb-4">Unser Handwerk</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[300px]">
+                            <div className="md:col-span-2 relative overflow-hidden rounded-lg group">
+                                {/* BILD: haarschnitt2.jpg */}
+                                <img src="images/haarschnitt2.jpg" className="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Schnitt"
+                                onError={(e) => e.target.src='https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'} />
+                            </div>
+                            <div className="relative overflow-hidden rounded-lg group">
+                                {/* BILD: baby.jpg */}
+                                <img src="images/baby.jpg" className="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Kinder" 
+                                onError={(e) => e.target.src='https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'}/>
+                            </div>
+                             <div className="relative overflow-hidden rounded-lg group">
+                                {/* BILD: babynah.jpg */}
+                                <img src="images/babynah.jpg" className="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Detail" 
+                                onError={(e) => e.target.src='https://images.unsplash.com/photo-1595476103222-a3a245229560?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'}/>
+                            </div>
+                             <div className="md:col-span-2 bg-black flex items-center justify-center rounded-lg p-8 text-center">
+                                <div>
+                                    <h3 className="text-white font-serif text-2xl mb-2">Ihr Look. Unsere Passion.</h3>
+                                    <p className="text-gray-400 mb-6">Lassen Sie sich inspirieren und beraten.</p>
+                                    <a href="#booking" className="text-gold border-b border-gold pb-1 uppercase text-xs font-bold hover:text-white hover:border-white transition">Jetzt Termin Sichern</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </section>
+            );
+        };
+
+        // --- GOOGLE BEWERTUNGEN & GÄSTEBUCH ---
+        const ReviewsAndGuestbook = () => {
+            const [entries, setEntries] = useState([
+                { name: "Sabine M.", date: "vor 2 Tagen", text: "Endlich ein Friseur, der versteht was 'nur Spitzen schneiden' bedeutet! Und die Kopfmassage war ein Traum.", stars: 5 },
+                { name: "Michael K.", date: "vor 1 Woche", text: "Der Sonntagstermin hat mir die Woche gerettet. Super Service, danke Andrea!", stars: 5 },
+                { name: "Julia", date: "vor 3 Wochen", text: "Tolle Beratung beim Make-up. Ich habe mich an meiner Hochzeit wunderschön gefühlt.", stars: 5 }
+            ]);
+            const [newName, setNewName] = useState("");
+            const [newText, setNewText] = useState("");
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (!newName || !newText) return;
+                setEntries([{ name: newName, date: "gerade eben", text: newText, stars: 5 }, ...entries]);
+                setNewName("");
+                setNewText("");
+            };
+
+            return (
+                <section id="bewertungen" className="py-24 bg-white">
+                    <div className="max-w-7xl mx-auto px-4">
+                        
+                        <div className="grid md:grid-cols-2 gap-16">
+                            
+                            {/* Google Reviews Fake */}
+                            <div>
+                                <div className="flex items-center mb-8">
+                                    <span className="text-2xl font-bold mr-2">Google</span>
+                                    <div className="flex space-x-1 text-google-yellow text-xl">
+                                        {[1,2,3,4,5].map(i => <i key={i} data-lucide="star" className="w-5 h-5 fill-current"></i>)}
+                                    </div>
+                                    <span className="ml-2 text-gray-500 text-sm">4.9 von 5 Sternen</span>
+                                </div>
+                                <h2 className="text-3xl font-serif font-bold mb-8">Das sagen unsere Kunden</h2>
+                                
+                                <div className="space-y-6 max-h-[500px] overflow-y-auto pr-2 no-scrollbar">
+                                    {entries.map((entry, i) => (
+                                        <div key={i} className="bg-stone-50 p-6 rounded shadow-sm border border-stone-100">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <div className="flex items-center">
+                                                    <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs mr-3">
+                                                        {entry.name.charAt(0)}
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-bold text-sm">{entry.name}</p>
+                                                        <p className="text-xs text-gray-400">{entry.date}</p>
+                                                    </div>
+                                                </div>
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" className="w-5 h-5" alt="Google" />
+                                            </div>
+                                            <div className="flex text-google-yellow mb-2">
+                                                {[...Array(entry.stars)].map((_, x) => <i key={x} data-lucide="star" className="w-3 h-3 fill-current"></i>)}
+                                            </div>
+                                            <p className="text-gray-600 text-sm leading-relaxed">"{entry.text}"</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Gästebuch Formular */}
+                            <div className="bg-stone-900 text-white p-8 shadow-lg rounded-sm h-fit border-t-4 border-gold">
+                                <h3 className="font-serif font-bold text-2xl mb-2">Gästebuch</h3>
+                                <p className="text-gray-400 mb-6 text-sm">Waren Sie zufrieden? Hinterlassen Sie uns eine Nachricht.</p>
+                                
+                                <form onSubmit={handleSubmit} className="space-y-4">
+                                    <input type="text" placeholder="Ihr Name" value={newName} onChange={e => setNewName(e.target.value)} className="w-full bg-stone-800 border border-stone-700 p-3 outline-none focus:border-gold transition text-white" />
+                                    <textarea placeholder="Wie war Ihr Besuch?" rows="4" value={newText} onChange={e => setNewText(e.target.value)} className="w-full bg-stone-800 border border-stone-700 p-3 outline-none focus:border-gold transition text-white"></textarea>
+                                    <button type="submit" className="w-full bg-gold text-black py-3 font-bold uppercase tracking-widest hover:bg-white transition">Bewertung Senden</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- BUCHUNGSSYSTEM (NEU: MIT DROPDOWN IM FORMULAR) ---
+        const Booking = ({ preSelectedService, onServiceChange }) => {
+            const [step, setStep] = useState(1);
+            const [selectedDate, setSelectedDate] = useState("");
+            const [loading, setLoading] = useState(false);
+            const [slots, setSlots] = useState([]);
+            const [bookedSlot, setBookedSlot] = useState(null);
+            const [shopClosedMessage, setShopClosedMessage] = useState(null);
+            const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+            
+            // Der aktuell gewählte Service (Standard: Schnitt)
+            const [currentService, setCurrentService] = useState(servicesData[0]);
+
+            // Reagiere, wenn "von oben" eine Auswahl kommt
+            useEffect(() => {
+                if (preSelectedService) {
+                    setCurrentService(preSelectedService);
+                    // Reset bei neuem Service von oben
+                    setStep(1);
+                    setSelectedDate("");
+                    setSlots([]);
+                }
+            }, [preSelectedService]);
+
+            // Handler: Wenn Nutzer IM Dropdown wechselt
+            const handleServiceDropdownChange = (e) => {
+                const serviceId = parseInt(e.target.value);
+                const newService = servicesData.find(s => s.id === serviceId);
+                setCurrentService(newService);
+                
+                // Wenn schon ein Datum da ist, sofort neu prüfen für neue Dauer!
+                if (selectedDate) {
+                    checkAvailability(selectedDate, newService);
+                }
+            };
+
+            const checkAvailability = (dateString, serviceToCheck = currentService) => {
+                setLoading(true);
+                setSlots([]);
+                setBookedSlot(null);
+                setShopClosedMessage(null);
+                
+                const date = new Date(dateString);
+                const day = date.getDay(); // 0=So, 1=Mo
+
+                // Simulierter Salonschluss
+                const closingHourNormal = 18; // 18:00 Uhr
+                const closingHourSaturday = 13; // 13:00 Uhr
+
+                setTimeout(() => {
+                    let availableSlots = [];
+
+                    if (day === 0 || day === 1) {
+                        setShopClosedMessage("An Sonntagen & Montagen haben wir Ruhetag. Aber Sie können hier schon Ihren Termin für Dienstag reservieren!");
+                    } else {
+                        setShopClosedMessage(null);
+                        
+                        // Basis-Slots
+                        let baseSlots = ["08:30", "09:00", "10:30", "13:00", "14:30", "16:00", "17:00", "17:30"];
+                        if (day === 6) { // Samstag
+                             baseSlots = ["08:00", "09:00", "10:00", "11:00", "12:00"];
+                        }
+
+                        // FILTERN NACH DAUER
+                        availableSlots = baseSlots.filter(slot => {
+                            const [hours, minutes] = slot.split(':').map(Number);
+                            const slotTimeInMinutes = hours * 60 + minutes;
+                            const serviceEndInMinutes = slotTimeInMinutes + serviceToCheck.duration;
+                            
+                            const closingTimeInMinutes = (day === 6 ? closingHourSaturday : closingHourNormal) * 60;
+
+                            return serviceEndInMinutes <= closingTimeInMinutes;
+                        });
+                    }
+                    
+                    setSlots(availableSlots);
+                    setLoading(false);
+                }, 600);
+            };
+
+            const sendEmail = (e) => {
+                e.preventDefault();
+                setLoading(true);
+                setTimeout(() => { setLoading(false); setStep(3); }, 1500);
+            };
+
+            return (
+                <section id="booking" className="py-24 bg-black text-white relative">
+                    <div className="max-w-4xl mx-auto px-4 relative z-10">
+                        <div className="text-center mb-12">
+                            <span className="text-gold font-bold tracking-widest uppercase text-xs">24/7 Online Booking</span>
+                            <h2 className="text-4xl md:text-5xl font-serif font-bold mt-3 mb-6">Ihr Termin. Ihre Zeit.</h2>
+                            <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                                Telefonisch nicht erreichbar? Kein Problem. Unser digitaler Kalender ist immer für Sie geöffnet.
+                            </p>
+                        </div>
+
+                        <div className="bg-stone-900 p-8 rounded-sm border border-stone-800 shadow-2xl">
+                            
+                            {/* --- NEU: DROPDOWN ZUR AUSWAHL IM KALENDER --- */}
+                            <div className="mb-8">
+                                <label className="block text-gray-500 text-sm font-bold mb-2 uppercase tracking-wide">Was dürfen wir machen?</label>
+                                <div className="relative">
+                                    <select 
+                                        value={currentService.id}
+                                        onChange={handleServiceDropdownChange}
+                                        className="w-full p-4 bg-stone-800 border border-stone-700 text-white focus:border-gold outline-none appearance-none font-serif text-lg rounded"
+                                    >
+                                        {servicesData.map(s => (
+                                            <option key={s.id} value={s.id}>
+                                                {s.title} ({s.duration} Min.)
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gold">
+                                        <i data-lucide="chevron-down" className="w-5 h-5"></i>
+                                    </div>
+                                </div>
+                                <p className="text-gray-500 text-xs mt-2">
+                                    <i data-lucide="clock" className="inline w-3 h-3 mr-1"></i>
+                                    Wir berechnen automatisch {currentService.duration} Minuten für diesen Termin.
+                                </p>
+                            </div>
+
+                            {step === 1 && (
+                                <div className="fade-in">
+                                    <label className="block text-gray-500 text-sm font-bold mb-4 uppercase tracking-wide">Wunschdatum wählen:</label>
+                                    <input type="date" value={selectedDate} className="w-full p-4 bg-black border border-stone-700 text-white focus:border-gold outline-none mb-8 font-serif text-lg" onChange={(e) => {setSelectedDate(e.target.value); checkAvailability(e.target.value);}} />
+
+                                    {loading && <div className="text-center py-8"><div className="inline-block w-6 h-6 border-2 border-gold border-t-transparent rounded-full animate-spin"></div></div>}
+
+                                    {!loading && selectedDate && (
+                                        <div>
+                                            {shopClosedMessage ? (
+                                                <div className="bg-stone-800 p-6 text-center border-l-2 border-gold">
+                                                    <p className="text-white font-serif text-lg mb-2">Salon Ruhezeit</p>
+                                                    <p className="text-sm text-gray-400 italic">{shopClosedMessage}</p>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    {slots.length > 0 ? (
+                                                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                                                            {slots.map((time) => (
+                                                                <button key={time} onClick={() => {setBookedSlot(time); setStep(2);}} className="py-3 border border-stone-700 hover:bg-gold hover:border-gold hover:text-black transition text-gray-300 font-serif">
+                                                                    {time}
+                                                                </button>
+                                                            ))}
+                                                        </div>
+                                                    ) : (
+                                                        <div className="text-center text-gray-400 py-4 bg-stone-800 rounded border border-red-900/30">
+                                                            <p className="text-red-300 font-bold mb-1">Keine passenden Termine</p>
+                                                            <p className="text-sm">Für <strong>{currentService.title}</strong> benötigen wir {currentService.duration} Minuten.</p>
+                                                            <p className="text-sm mt-2">Bitte wählen Sie einen früheren Zeitpunkt oder einen anderen Tag.</p>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {step === 2 && (
+                                <form onSubmit={sendEmail} className="fade-in max-w-lg mx-auto text-center">
+                                    <p className="mb-8 text-gray-400">Reservierung für: <span className="text-gold">{new Date(selectedDate).toLocaleDateString('de-DE')} um {bookedSlot} Uhr</span></p>
+                                    
+                                    <div className="text-sm text-gray-500 mb-8 border p-4 border-stone-800 bg-black rounded flex items-center justify-center gap-3">
+                                        <i data-lucide="scissors" className="text-gold"></i>
+                                        <span>Leistung: <strong>{currentService.title}</strong> ({currentService.duration} Min)</span>
+                                    </div>
+
+                                    <div className="space-y-4 mb-8">
+                                        <input required type="text" placeholder="Name" className="w-full bg-black border border-stone-700 p-4 text-white focus:border-gold outline-none" onChange={e => setFormData({...formData, name: e.target.value})} />
+                                        <input required type="email" placeholder="Email" className="w-full bg-black border border-stone-700 p-4 text-white focus:border-gold outline-none" onChange={e => setFormData({...formData, email: e.target.value})} />
+                                        <input required type="tel" placeholder="Telefon" className="w-full bg-black border border-stone-700 p-4 text-white focus:border-gold outline-none" onChange={e => setFormData({...formData, phone: e.target.value})} />
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <button type="button" onClick={() => setStep(1)} className="w-1/3 py-4 text-gray-500 hover:text-white">Zurück</button>
+                                        <button type="submit" className="w-2/3 py-4 bg-gold text-black font-bold hover:bg-white transition uppercase tracking-widest">Buchen</button>
+                                    </div>
+                                </form>
+                            )}
+
+                            {step === 3 && (
+                                <div className="text-center py-12 fade-in">
+                                    <h3 className="text-3xl font-serif text-gold mb-4">Vielen Dank.</h3>
+                                    <p className="text-gray-400 mb-8">Wir haben Ihre Anfrage für {currentService.title} erhalten und melden uns umgehend.</p>
+                                    <button onClick={() => {setStep(1); setSelectedDate("");}} className="text-white border-b border-white pb-1 hover:text-gold hover:border-gold transition">Zurück zum Kalender</button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- ANFAHRT & LOCATION (Neu: Mit Salon Bild als Hintergrund) ---
+        const Location = () => {
+            return (
+                <section id="anfahrt" className="relative py-24">
+                     {/* BILD: salon.jpg als Hintergrund */}
+                     <div className="absolute inset-0 z-0">
+                        <img src="images/salon.jpg" className="w-full h-full object-cover" alt="Salon" 
+                             onError={(e) => {e.target.src='https://images.unsplash.com/photo-1521590832169-7dad1a9b2716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'}} />
+                        <div className="absolute inset-0 bg-stone-900/90"></div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 relative z-10 text-white">
+                         <div className="grid md:grid-cols-2 gap-16 items-center">
+                            <div className="order-2 md:order-1 h-[400px] shadow-2xl border-4 border-stone-700">
+                                <iframe width="100%" height="100%" frameBorder="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=de&amp;q=Sonnenstr.%206,%2035102%20Lohra-Kirchvers&amp;output=embed"></iframe>
+                            </div>
+                            <div className="order-1 md:order-2">
+                                <h2 className="text-4xl font-serif font-bold mb-6 text-gold">Anfahrt & Kontakt</h2>
+                                <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+                                    Wir befinden uns im Herzen von Lohra-Kirchvers. <br/>
+                                    Parkplätze finden Sie direkt vor dem Salon.
+                                </p>
+                                <ul className="space-y-4 mb-10">
+                                    <li className="flex items-start">
+                                        <i data-lucide="map-pin" className="w-6 h-6 mr-4 text-gold mt-1"></i>
+                                        <div>
+                                            <span className="font-bold block">Adresse</span>
+                                            <span className="text-gray-400">Sonnenstr. 6, 35102 Lohra-Kirchvers</span>
+                                        </div>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <i data-lucide="clock" className="w-6 h-6 mr-4 text-gold mt-1"></i>
+                                        <div>
+                                            <span className="font-bold block">Öffnungszeiten</span>
+                                            <span className="text-gray-400">Di-Fr: 09:00 - 18:00 Uhr <br/> Sa: 08:00 - 13:00 Uhr</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <a 
+                                    href="https://www.google.com/maps/dir//Sonnenstr.+6,+35102+Lohra-Kirchvers" 
+                                    target="_blank"
+                                    className="inline-flex items-center bg-white text-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-gold hover:text-white transition shadow-lg"
+                                >
+                                    <i data-lucide="navigation" className="w-4 h-4 mr-2"></i>
+                                    Route berechnen
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- FOOTER ---
+        const Footer = () => {
+            return (
+                <footer id="kontakt" className="bg-white pt-20 pb-10 border-t border-gray-100 text-gray-800">
+                    <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12">
+                        <div>
+                            <h3 className="font-modern text-2xl font-bold mb-4 tracking-widest uppercase">Brusius<span className="text-gold">.</span></h3>
+                            <p className="text-gray-500 text-sm leading-relaxed">
+                                Modefriseur Brusius<br/>
+                                Inh. Andrea Brusius<br/>
+                                Ihr Experte für Typberatung in Lohra.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 className="text-xs font-bold uppercase tracking-widest mb-6 text-gold">Schnellkontakt</h4>
+                            <ul className="space-y-3 text-gray-600 text-sm">
+                                <li className="flex items-center"><i data-lucide="phone" className="w-4 h-4 mr-3 text-gold"></i> 06426-921244</li>
+                                <li className="flex items-center"><i data-lucide="mail" className="w-4 h-4 mr-3 text-gold"></i> kontakt@modefriseur-brusius.de</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-xs font-bold uppercase tracking-widest mb-6 text-gold">Rechtliches</h4>
+                            <div className="flex space-x-6 text-sm text-gray-500">
+                                <a href="#" className="hover:text-black">Impressum</a>
+                                <a href="#" className="hover:text-black">Datenschutz</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-gray-100 text-xs text-center text-gray-400">
+                        &copy; 2025 Modefriseur Brusius. Alle Rechte vorbehalten.
+                    </div>
+                </footer>
+            );
+        };
+
+        const App = () => {
+            useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, []);
+
+            // State um den gewählten Service von "Leistungen" zu "Booking" zu übergeben
+            const [bookingService, setBookingService] = useState(null);
+
+            const handleServiceSelect = (service) => {
+                setBookingService(service);
+                // Smooth Scroll zu Booking
+                document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            };
+
+            return (
+                <div className="antialiased selection:bg-gold selection:text-white">
+                    <Navbar />
+                    <Hero />
+                    <Team />
+                    <Services onSelectService={handleServiceSelect} />
+                    <Gallery />
+                    <ReviewsAndGuestbook />
+                    <Booking preSelectedService={bookingService} />
+                    <Location />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
